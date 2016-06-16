@@ -69,7 +69,7 @@ function get_accountoverview ($account ) {
 function get_moneyseries( $start_month, $end_month) {
 
    // eg currently in may (start_month = 5), show from june - dec, month 6 - 12, i 5 to 11, make zeros for 0 to 4
-   $outp .= '[';
+   $outp = '[';
    for ($i = 0; $i < $start_month - 1; $i++) {
       $outp .= '0.0';
       if ($i < 11) {$outp .= ','; }

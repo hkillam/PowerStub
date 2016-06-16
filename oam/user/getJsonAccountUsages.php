@@ -3,7 +3,8 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 // https://myaccount.xcelenergy.com/oam/user/getJsonAccountUsages.req?premise=301480088
 
-$premise= htmlspecialchars($_GET["premise"]);
+//$premise= htmlspecialchars($_GET["premise"]);
+$account = htmlspecialchars($_GET["account"]);
 ?>
 {
     "accountType": "RESIDENTIAL",
@@ -386,7 +387,7 @@ $premise= htmlspecialchars($_GET["premise"]);
     "greenEnergy": [
 
     ],
-    "number": "<? echo $premise ?>",
+    "number": "<? echo $account ?>",
     "overview": [
         {
             "cost": 35.1,
