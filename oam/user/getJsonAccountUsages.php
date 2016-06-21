@@ -2,14 +2,41 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 // https://myaccount.xcelenergy.com/oam/user/getJsonAccountUsages.req?premise=301480088
+// http://powerstub.killamsolutions.ca/oam/user/getJsonAccountUsages.php?account=301480088
 
 //$premise= htmlspecialchars($_GET["premise"]);
 $account = htmlspecialchars($_GET["account"]);
+
+// sample client numbers:  6348558270 (airport), 555555 (university)
+
+$sampleData= [
+//  meternumber     => [0:elec usage,  1:demand, 2:elec cost,   3:therms, 4:elec emiss, 5:gas emis, 6:gas cost, 7:last mo kwh]
+    "555555001"     => [205721,        726,      20085.98,      '',       128.7,        '',         '',         210041.141],
+    "6348558270001" => [205721,        726,      20085.98,      '',       128.7,        '',         '',         210041.141],
+    "555555002"     => ['',            '',       '',            1890,     '',           11.1,       883.07,     ''],
+    "6348558270002" => ['',            '',       '',            1890,     '',           11.1,       883.07,     ''],
+    "555555022"     => [1761,          35,       762.67,        '',       1.1,          '',         '',         1724.019],
+    "6348558270022" => [1761,          35,       762.67,        '',       1.1,          '',         '',         1724.019],
+    "555555003"     => [2518,          48,       883.04,        '',       1.6,          '',         '',         2326.84452],
+    "6348558270003" => [2518,          48,       883.04,        '',       1.6,          '',         '',         2326.84452],
+    "555555004"     => [8400,          37,       1032.90,       '',       5.3,          '',         '',         8660.4],
+    "6348558270004" => [8400,          37,       1032.90,       '',       5.3,          '',         '',         8660.4],
+    "555555021"     => [16720,         98,       2466.44,       '',       10.5,         '',         '',         16870.48],
+    "6348558270021" => [16720,         98,       2466.44,       '',       10.5,         '',         '',         16870.48],
+    "555555032"     => [48876,         152,      4542.08,       '',       30.6,         '',         '',         46823.208],
+    "6348558270032" => [48876,         152,      4542.08,       '',       30.6,         '',         '',         46823.208],
+    "default"       => [276.0,         45.0,     35.1,          64.3,     369.288,      748.8,      43.65,      324],
+];
+
+$values = $sampleData[$account];
+if (!isset($values)) $values = $sampleData["default"];
+
+
 ?>
 {
     "accountType": "RESIDENTIAL",
     "addressLine1": "356 DEMIFEY LANE",
-    "addressLine2": "",
+    "addressLine2": "<? echo $values[0] ?>",
     "addressLine3": "PIXYVILLE CA 90210-5307",
     "complex": false,
     "current": true,
@@ -389,38 +416,44 @@ $account = htmlspecialchars($_GET["account"]);
     ],
     "number": "<? echo $account ?>",
     "overview": [
+        <? if  ($values[0] > 0) : ?>
         {
-            "cost": 35.1,
-            "emissions": 369.288,
+            "cost": <? echo $values[2] ?>,
+            "emissions": <? echo $values[4] ?>,
             "type": "ELECTRICITY-1",
             "usage": {
-                "amount": 276.0,
+                "amount": <? echo $values[0] ?>,
                 "unit": "kWh"
             }
-        },
+        }
+        <?php endif; ?>
+        <? if  ($values[0] > 0 && $values[3] > 0) echo ',' ?>
+        <? if  ($values[3] > 0) : ?>
         {
-            "cost": 43.65,
-            "emissions": 748.8,
+            "cost": <? echo $values[6] ?>,
+            "emissions": <? echo $values[5] ?>,
             "type": "NATURAL GAS-1",
             "usage": {
-                "amount": 64.0,
+                "amount": <? echo $values[3] ?>,
                 "unit": "Therms"
             }
         }
+        <?php endif; ?>
     ],
     "services": [
+    <? if  ($values[0] > 0) : ?>
         {
             "reads": [
                 {
                     "billingDays": 29,
                     "details": [
                         {
-                            "amount": 0.0,
+                            "amount": <? echo $values[1]+2 ?>,
                             "unit": "kW",
                             "label": "Actual Demand"
                         },
                         {
-                            "amount": 0.0,
+                            "amount": <? echo $values[1] ?>,
                             "unit": "kW",
                             "label": "Billable Demand"
                         },
@@ -458,7 +491,7 @@ $account = htmlspecialchars($_GET["account"]);
                     "lastReadDate": "Tue Apr 12 00:00:00 UTC 2016",
                     "method": "Actual",
                     "usage": {
-                        "amount": 276.0,
+                        "amount": <? echo $values[0] ?>,
                         "unit": "kWh"
                     }
                 },
@@ -509,7 +542,7 @@ $account = htmlspecialchars($_GET["account"]);
                     "lastReadDate": "Mon Mar 14 00:00:00 UTC 2016",
                     "method": "Actual",
                     "usage": {
-                        "amount": 324.0,
+                        "amount": <? echo $values[7] ?>,
                         "unit": "kWh"
                     }
                 },
@@ -821,7 +854,7 @@ $account = htmlspecialchars($_GET["account"]);
                 }
             ],
             "name": "ELECTRICITY-1"
-        },
+        }, <?php endif; ?>
         {
             "reads": [
                 {
