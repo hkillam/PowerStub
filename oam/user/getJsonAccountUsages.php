@@ -31,6 +31,53 @@ $sampleData= [
 $values = $sampleData[$account];
 if (!isset($values)) $values = $sampleData["default"];
 
+function get_decimalseries( $start_month, $end_month) {
+// returns [23.3,44.8,44.2, ... ]
+
+// eg currently in may (start_month = 5), show from june - dec, month 6 - 12, i 5 to 11, make zeros for 0 to 4
+    $outp = '[';
+    for ($i = 0; $i < $start_month - 1; $i++) {
+        $outp .= '0.0';
+        if ($i < 11) {$outp .= ','; }
+    }
+    for ($i = $start_month - 1; $i < $end_month; $i++) {
+        $outp .= get_randommoney();
+        if ($i < 11) {$outp .= ','; }
+    }
+    for ($i = $end_month; $i < 12; $i++) {
+        $outp .= '0.0';
+        if ($i < 11) {$outp .= ','; }
+    }
+    $outp .= ']';
+    return $outp;
+}
+
+function get_randomkwhseries() {
+$outp = '[';
+for ($i = 0; $i < 12; $i++) {
+    $outp .= rand ( 200, 500 ).'.0';
+    if ($i < 11) {$outp .= ','; }
+}
+$outp .= ']';
+return $outp;
+}
+
+function get_randomFseries() {
+$outp = '[';
+for ($i = 0; $i < 12; $i++) {
+    $outp .= rand ( 26, 80 ).'.0';
+    if ($i < 11) {$outp .= ','; }
+}
+$outp .= ']';
+return $outp;
+}
+
+// ----------------------------------------
+function get_randommoney () {
+    $outp = rand ( 25, 100 ).'.'.rand ( 10, 99);
+    return $outp;
+}
+
 
 ?>
 {
@@ -48,173 +95,56 @@ if (!isset($values)) $values = $sampleData["default"];
                     {
                         "series": [
                             {
-                                "data": [
-                                    555.0,
-                                    375.0,
-                                    324.0,
-                                    276.0,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null
-                                ],
+                                "data": <? echo get_randomkwhseries() ?>,
                                 "label": "2016"
                             },
                             {
-                                "data": [
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    327.0,
-                                    282.0,
-                                    295.0,
-                                    407.0
-                                ],
-                                "label": "2015"
+                                "data": <? echo get_randomkwhseries() ?>,
+                                "label": "2014"
                             },
                             {
-                                "data": [
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null
-                                ],
-                                "label": "2014"
+                                "data": <? echo get_randomkwhseries() ?>,
+                                "label": "2015"
                             }
                         ],
                         "name": "Usage",
                         "label": "Usage (kWh)"
                     },
                     {
+                        "name": "Temperature",
+                        "label": "Temperature(F)",
                         "series": [
                             {
-                                "data": [
-                                    30.01,
-                                    36.26,
-                                    46.66,
-                                    43.16,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null
-                                ],
+                                "data": <? echo get_randomFseries() ?>,
                                 "label": "2016"
                             },
                             {
-                                "data": [
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    70.75,
-                                    65.91,
-                                    54.35,
-                                    39.42
-                                ],
-                                "label": "2015"
+                                "data": <? echo get_randomFseries() ?>,
+                                "label": "2014"
                             },
                             {
-                                "data": [
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null
-                                ],
-                                "label": "2014"
+                                "data": <? echo get_randomFseries() ?>,
+                                "label": "2015"
                             }
-                        ],
-                        "name": "Temperature",
-                        "label": "Temperature(F)"
+                        ]
                     },
                     {
+                        "name": "Amount",
+                        "label": "Cost ($)",
                         "series": [
                             {
-                                "data": [
-                                    63.97,
-                                    44.27,
-                                    39.36,
-                                    35.1,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null
-                                ],
+                                "data": <? echo get_decimalseries( 1, 12) ?>,
                                 "label": "2016"
                             },
                             {
-                                "data": [
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    44.61,
-                                    -40.0,
-                                    38.54,
-                                    50.1
-                                ],
-                                "label": "2015"
+                                "data": <? echo get_decimalseries( 1, 12) ?>,
+                                "label": "2014"
                             },
                             {
-                                "data": [
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null
-                                ],
-                                "label": "2014"
+                                "data": <? echo get_decimalseries( 1, 12) ?>,
+                                "label": "2015"
                             }
-                        ],
-                        "name": "Amount",
-                        "label": "Cost ($)"
+                        ]
                     }
                 ]
             },
@@ -281,54 +211,15 @@ if (!isset($values)) $values = $sampleData["default"];
                     {
                         "series": [
                             {
-                                "data": [
-                                    30.01,
-                                    36.26,
-                                    46.66,
-                                    43.16,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null
-                                ],
+                                "data": <? echo get_randomFseries() ?>,
                                 "label": "2016"
                             },
                             {
-                                "data": [
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    70.75,
-                                    65.91,
-                                    54.35,
-                                    39.42
-                                ],
+                                "data": <? echo get_randomFseries() ?>,
                                 "label": "2015"
                             },
                             {
-                                "data": [
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null
-                                ],
+                                "data": <? echo get_randomFseries() ?>,
                                 "label": "2014"
                             }
                         ],
@@ -336,79 +227,27 @@ if (!isset($values)) $values = $sampleData["default"];
                         "label": "Temperature(F)"
                     },
                     {
+                        "name": "Amount",
+                        "label": "Cost ($)",
                         "series": [
                             {
-                                "data": [
-                                    90.21,
-                                    60.54,
-                                    44.42,
-                                    43.65,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null
-                                ],
+                                "data": <? echo get_decimalseries( 1, 12) ?>,
                                 "label": "2016"
                             },
                             {
-                                "data": [
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    6.07,
-                                    18.04,
-                                    35.07,
-                                    65.79
-                                ],
+                                "data": <? echo get_decimalseries( 1, 12) ?>,
                                 "label": "2015"
                             },
                             {
-                                "data": [
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null
-                                ],
+                                "data": <? echo get_decimalseries( 1, 12) ?>,
                                 "label": "2014"
                             }
-                        ],
-                        "name": "Amount",
-                        "label": "Cost ($)"
+                        ]
                     }
                 ]
             }
         ],
-        "labels": [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-        ]
+        "labels":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
     },
     "endDate": null,
     "greenEnergy": [
@@ -458,12 +297,12 @@ if (!isset($values)) $values = $sampleData["default"];
                             "label": "Billable Demand"
                         },
                         {
-                            "amount": 32.88,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "$",
                             "label": "Electric Charges"
                         },
                         {
-                            "amount": 35.1,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "$",
                             "label": "Total Electric Charges"
                         },
@@ -499,27 +338,27 @@ if (!isset($values)) $values = $sampleData["default"];
                     "billingDays": 32,
                     "details": [
                         {
-                            "amount": 0.0,
+                            "amount":  <? echo get_randommoney () ?>,
                             "unit": "kW",
                             "label": "Actual Demand"
                         },
                         {
-                            "amount": 0.0,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "kW",
                             "label": "Billable Demand"
                         },
                         {
-                            "amount": 36.87,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "$",
                             "label": "Electric Charges"
                         },
                         {
-                            "amount": 39.36,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "$",
                             "label": "Total Electric Charges"
                         },
                         {
-                            "amount": 1.23,
+                            "amount": 2.23,
                             "unit": "$",
                             "label": "Total Electric Charges / Day"
                         },
@@ -550,22 +389,22 @@ if (!isset($values)) $values = $sampleData["default"];
                     "billingDays": 29,
                     "details": [
                         {
-                            "amount": 0.0,
+                            "amount":  <? echo get_randommoney () ?>,
                             "unit": "kW",
                             "label": "Actual Demand"
                         },
                         {
-                            "amount": 0.0,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "kW",
                             "label": "Billable Demand"
                         },
                         {
-                            "amount": 41.46,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "$",
                             "label": "Electric Charges"
                         },
                         {
-                            "amount": 44.27,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "$",
                             "label": "Total Electric Charges"
                         },
@@ -575,7 +414,7 @@ if (!isset($values)) $values = $sampleData["default"];
                             "label": "Total Electric Charges / Day"
                         },
                         {
-                            "amount": 36.0,
+                            "amount": 39.0,
                             "unit": "°F",
                             "label": "Average Temperature"
                         },
@@ -601,22 +440,22 @@ if (!isset($values)) $values = $sampleData["default"];
                     "billingDays": 34,
                     "details": [
                         {
-                            "amount": 0.0,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "kW",
                             "label": "Actual Demand"
                         },
                         {
-                            "amount": 0.0,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "kW",
                             "label": "Billable Demand"
                         },
                         {
-                            "amount": 59.92,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "$",
                             "label": "Electric Charges"
                         },
                         {
-                            "amount": 63.97,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "$",
                             "label": "Total Electric Charges"
                         },
@@ -652,12 +491,12 @@ if (!isset($values)) $values = $sampleData["default"];
                     "billingDays": 31,
                     "details": [
                         {
-                            "amount": 0.0,
+                            "amount":  <? echo get_randommoney () ?>,
                             "unit": "kW",
                             "label": "Actual Demand"
                         },
                         {
-                            "amount": 0.0,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "kW",
                             "label": "Billable Demand"
                         },
@@ -703,12 +542,12 @@ if (!isset($values)) $values = $sampleData["default"];
                     "billingDays": 31,
                     "details": [
                         {
-                            "amount": 0.0,
+                            "amount":  <? echo get_randommoney () ?>,
                             "unit": "kW",
                             "label": "Actual Demand"
                         },
                         {
-                            "amount": 0.0,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "kW",
                             "label": "Billable Demand"
                         },
@@ -754,12 +593,12 @@ if (!isset($values)) $values = $sampleData["default"];
                     "billingDays": 28,
                     "details": [
                         {
-                            "amount": 0.0,
+                            "amount":  <? echo get_randommoney () ?>,
                             "unit": "kW",
                             "label": "Actual Demand"
                         },
                         {
-                            "amount": 0.0,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "kW",
                             "label": "Billable Demand"
                         },
@@ -805,22 +644,22 @@ if (!isset($values)) $values = $sampleData["default"];
                     "billingDays": 8,
                     "details": [
                         {
-                            "amount": 0.0,
+                            "amount":  <? echo get_randommoney () ?>,
                             "unit": "kW",
                             "label": "Actual Demand"
                         },
                         {
-                            "amount": 0.0,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "kW",
                             "label": "Billable Demand"
                         },
                         {
-                            "amount": 41.78,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "$",
                             "label": "Electric Charges"
                         },
                         {
-                            "amount": 44.61,
+                            "amount": <? echo get_randommoney () ?>,
                             "unit": "$",
                             "label": "Total Electric Charges"
                         },
@@ -1154,3 +993,4 @@ if (!isset($values)) $values = $sampleData["default"];
     "status": "CURRENT",
     "twelveMonthDataAvailable": true
 }
+

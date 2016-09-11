@@ -48,9 +48,9 @@ function get_accountoverview ($account ) {
     $outp .= '{"efficientNeighbors":"838","name":"Energy","you":"728","unitLabel":"Units","allNeighbors":"1201"},'."\n";
     $outp .= '{"efficientNeighbors":"64","name":"Natural Gas","you":"64","unitLabel":"Therms","allNeighbors":"85"},'."\n";
     $outp .= '{"efficientNeighbors":"265","name":"Electricity","you":"276","unitLabel":"kWh","allNeighbors":"597"}'."\n";
-    $outp .= ']';  // end of comparisons
+    $outp .= '],';  // end of comparisons
     $outp .= '"cost":78.75,"grade":"A+","number":"301480088","programs":{"windSource":false,"solarReward":true,"saverSwitch":true}'."\n";
-    $outp .= '}]'; // end of this premise, end of premises list
+    $outp .= '}],'; // end of this premise, end of premises list
     $outp .= '"programs":{"eBill":true,"ebillAutoPay":true,"manualPay":true,"averageMonthlyPayment":false},'."\n";
     $outp .= '"trendData":{';
     $outp .= '"series":['."\n";
